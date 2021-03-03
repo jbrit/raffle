@@ -2,6 +2,6 @@
 {% block body %}
 <div class="text-2xl">Current Home Page</div>
 {% if request.user.is_authenticated %}
-Logged in as: {{request.user.email}}
+User's wallet Balance: ₦ {{request.user.wallet.balance}}
 {% endif %}
 {% endblock body%}
