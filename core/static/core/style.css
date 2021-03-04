@@ -1,0 +1,37 @@
+.text-main-color {
+    color: #2b3a49;
+}
+  
+.side-link {
+    color: #7c889d;
+}
+.side-link:hover {
+    color: #7c889d;
+}
+.active-side-link {
+    color: #1d222c;
+}
+.active-side-link:hover {
+    color: #1d222c;
+}
+
+/* Font Weight */
+.fw-500 {
+    font-weight: 500;
+}
+.fw-600 {
+    font-weight: 600;
+}
+
+/* Max width */
+.max-w-sm{
+    max-width: 480px;
+}
+.max-w-signup{
+    max-width: 600px;
+}
+
+/* Min height */
+.min-h-screen{
+    min-height: 100vh;
+}

@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from .managers import CustomUserManager
+from .validators import validate_room
 
 from wallet.models import Wallet
 
@@ -49,7 +50,7 @@ class Profile(models.Model):
     email_confirmed = models.BooleanField(default=False)
     first_name = models.CharField("First Name", blank=True, max_length=20)
     last_name = models.CharField("Last Name", blank=True, max_length=20)
-    room_no = models.CharField("Room Number", blank=True, max_length=20)
+    room_no = models.CharField("Room Number", validators=[validate_room], blank=True, max_length=4)
     department = models.CharField("Department", blank=True ,max_length=50)
     hall = models.CharField("Hall", choices=halls.choices, default=halls.choices[0][0], max_length=20)
     level = models.CharField("Level", choices=levels.choices, default=levels.choices[0][0], max_length=3)

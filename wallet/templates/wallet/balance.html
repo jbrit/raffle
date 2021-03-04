@@ -1,7 +1,0 @@
-{% extends 'core/base.html' %}
-{% block body %}
-<div class="text-2xl">Current Home Page</div>
-{% if request.user.is_authenticated %}
-User's wallet Balance: ₦ {{request.user.wallet.balance}}
-{% endif %}
-{% endblock body%}

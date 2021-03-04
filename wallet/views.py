@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def balance_view(request):
-    return render(request, "wallet/balance.html")
+@login_required(login_url="/login/")
+def dashboard_view(request):
+    return render(request, "wallet/dashboard_home.html")

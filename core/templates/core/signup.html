@@ -1,23 +1,80 @@
 {% extends 'core/base.html' %}
 {% block body %}
-<div class="min-h-screen flex flex-col justify-center">
-    <div class="px-4 mx-auto w-full max-w-sm text-3xl text-center font-bold mb-8">Register</div>
+<div class="min-h-screen d-flex flex-column justify-content-center">
+    <div class="px-4 mx-auto w-100 max-w-signup fs-3 text-center fw-500 mb-3">Register</div>
     {% if error %}{{error}}{% endif %}
-    <form class="px-4 mx-auto w-full max-w-sm" action="." method="post">
+    <form class="row g-3 px-4 mx-auto w-100 max-w-signup" action="." method="post">
         {% csrf_token %}
-        <div class="mb-4">
-            <label for="name" class="">Email</label>
-            <input class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" name="{{form.email.name}}" type="email">
+        
+        <div class="col-12 col-md-6">
+            <label for="id_first_name" class="form-label">First Name</label>
+            <input class="form-control" type="text" name="{{form.first_name.name}}" maxlength="20" required id="id_first_name">
         </div>
-        <div class="mb-4">
-            <label for="name" class="">Password</label>
-            <input class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" name="{{form.password1.name}}" type="password">
+        <div class="col-12 col-md-6">
+            <label for="id_last_name" class="form-label">Last Name</label>
+            <input class="form-control" type="text" name="{{form.last_name.name}}" maxlength="20" required id="id_last_name">
+        </div>
+        <div class="col-12 col-md-6">
+            <label for="id_room_no" class="form-label">Room No</label>
+            <input class="form-control" type="text" name="{{form.room_no.name}}" maxlength="4" minlength="4" pattern="[a-gA-G]{1}[0-9]{3}" title="Please type a room number in this format: D208" required id="id_room_no">
+        </div>
+        <div class=" col-12 col-md-6">
+            <label for="id_department" class="form-label">Department</label>
+            <input class="form-control" type="text" name="{{form.department.name}}" maxlength="50" required id="id_department">
+        </div>
+        <div class="col-12 col-md-6">
+            <label for="id_hall" class="form-label">Hall</label>
+            <select class="form-control" name="{{form.hall.name}}" id="id_hall">
+                <option value="Daniel">Daniel</option>
+                <option value="Abraham">Abraham</option>
+                <option value="Joseph">Joseph</option>
+                <option value="Isaac">Isaac</option>
+                <option value="Dorcas">Dorcas</option>
+                <option value="Sarah">Sarah</option>
+                <option value="Abigail">Abigail</option>       
+            </select>
+        </div>
+        <div class="col-12 col-md-6">
+            <label for="id_level" class="form-label">Level</label>
+            <select class="form-control" name="{{form.level.name}}" id="id_level">
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+                <option value="500">500</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-6">
+            <label for="name" class="form-label">Email</label>
+            <input class="form-control" name="{{form.email.name}}" type="email" required>
+            {% for error in form.email.errors %}
+            <div class="d-block invalid-feedback">
+                {{error}}
+              </div>
+            {% endfor %}
+        </div>
+        <div class="col-12 col-md-6">
+            <label for="name" class="form-label">Password</label>
+            <input class="form-control"  name="{{form.password1.name}}" type="password" required>
+            {% for error in form.password1.errors %}
+            <div class="d-block invalid-feedback">
+                {{error}}
+              </div>
+            {% endfor %}
        </div>
-       <div class="mb-6">
-           <label for="name" class="">Confirm Password</label>
-           <input class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" name="{{form.password2.name}}" type="password">
+       <div class="col-12 col-md-6">
+           <label for="name" class="form-label">Confirm Password</label>
+           <input class="form-control"  name="{{form.password2.name}}" type="password" required>
+           {% for error in form.password2.errors %}
+            <div class="d-block invalid-feedback">
+                {{error}}
+              </div>
+            {% endfor %}
         </div>
-        <button class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">Register</button>
+        <button class="btn btn-primary" type="submit">Register</button>
+        <div class="text-center">
+            Have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login</a>
+        </div>
     </form>
 </div>
 {% endblock body%}

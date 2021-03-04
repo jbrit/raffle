@@ -1,0 +1,60 @@
+{% extends 'wallet/base_dashboard.html' %}
+{% load humanize %}
+{% block maincontent %}
+<div class="heading mb-5">
+    <div class="fw-500 mb-3 fs-3">
+      Home
+    </div>
+    <div class="fs-5 text-muted">Welcome Back, {{request.user.profile.first_name|title}}.</div>
+</div>
+<div class="row mb-4">
+    <div class="mb-4 col-12 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body fw-500">
+                <div class="mb-3 text-muted text-uppercase">
+                    Your Wallet Balance
+                </div>
+                <div class="mb-3 d-flex fs-2">
+                    <span class="me-2">₦</span><span>{{ request.user.wallet.balance|floatformat:2|intcomma }}</span>
+                </div>
+                <a class="text-decoration-none" href="#fund-wallet">
+                    Fund Wallet
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="mb-4 col-12 col-lg-7">
+      <div class="card shadow-sm">
+        <div class="card-body fw-500">
+          <div class="mb-3 text-muted text-uppercase">
+            Pending Transactions
+          </div>
+          <div class="mb-3 d-flex fs-2">No Transaction Pending</div>
+          <a class="text-decoration-none" href="#transactions"
+            >View all Transactions</a
+          >
+        </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-4 col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body fw-500">
+              <div class="mb-3 text-muted text-uppercase">
+                Current Tickets
+              </div>
+            </div>
+         </div>
+    </div>
+    <div class="mb-4 col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body fw-500">
+              <div class="mb-3 text-muted text-uppercase">
+                Active Raffle
+              </div>
+            </div>
+         </div>
+    </div>
+</div>
+{% endblock %}

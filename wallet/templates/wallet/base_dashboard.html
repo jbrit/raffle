@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block body %}
+<nav class="navbar navbar-light shadow-sm bg-white mb-5 py-3">
+    <div class="container">
+      <a class="navbar-brand fs-3 fw-bold" href="#">
+        <!-- <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-top"> -->
+        Raffle
+      </a>
+    </div>
+  </nav>
+  <section>
+    <div class="container d-flex">
+      {% include 'wallet/sidebar.html' %}
+      <div class="main-content h-100 flex-grow-1 ms-md-5 px-3">
+        {% block maincontent %}
+        {% endblock %}
+      </div>
+    </div>
+  </section>
+{% endblock body%}

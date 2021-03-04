@@ -2,6 +2,10 @@
 {% block body %}
 <div class="text-2xl">Current Home Page</div>
 {% if request.user.is_authenticated %}
-Logged in as: {{request.user.email}}
+Logged in as: {{request.user.profile.first_name}} {{request.user.profile.last_name}}
+<a href="{% url 'dashboard' %}">Dashboard</a>
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
 {% endif %}
 {% endblock body%}
