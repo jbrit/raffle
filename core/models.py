@@ -40,10 +40,25 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
        
 
 class Profile(models.Model):
+
+    halls = models.TextChoices("Hall", "Daniel Abraham Joseph Isaac Dorcas Sarah Abigail")
+    levels = models.TextChoices("Level", "100 200 300 400 500")
+
+
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)
+    first_name = models.CharField("First Name", blank=True, max_length=20)
+    last_name = models.CharField("Last Name", blank=True, max_length=20)
+    room_no = models.CharField("Room Number", blank=True, max_length=20)
+    department = models.CharField("Department", blank=True ,max_length=50)
+    hall = models.CharField("Hall", choices=halls.choices, default=halls.choices[0][0], max_length=20)
+    level = models.CharField("Level", choices=levels.choices, default=levels.choices[0][0], max_length=3)
+    
+
     # create more user related info
 
+    def __str__(self):
+        return self.user.email
 
 @receiver(post_save, sender=CustomUser)
 def update_user_wallet_profile(sender, instance, created, **kwargs):
