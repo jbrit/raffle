@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'core.apps.CoreConfig',
+    'draw.apps.DrawConfig',
     'wallet.apps.WalletConfig',
 ]
 
