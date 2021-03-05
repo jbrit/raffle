@@ -1,0 +1,61 @@
+{% extends 'wallet/base_dashboard.html' %}
+{% load humanize %}
+{% block maincontent %}
+<div class="heading mb-5">
+    <div class="fw-500 mb-3 fs-3">
+      Campaigns
+    </div>
+    <div class="fs-5 text-muted">You can view all campaigns here.</div>
+</div>
+<div class="row">
+    <div class="mb-4 col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body fw-500">
+              <div class="mb-3 text-muted text-uppercase">
+                Active Campaigns
+              </div>
+              {% for campaign in active_campaigns %}
+              
+                
+              <div class="card mb-2 shadow-s">
+                <div class="card-body d-flex justify-content-between">
+                  <span class="text-uppercase mr-2">
+                    {{campaign.campaign_ref}}
+                  </span>
+                  <a class="text-decoration-none" href="{% url 'campaign_detail' campaign.four_digit_id %}">
+                    Details
+                  </a>
+                </div>
+              </div>
+              
+              {% empty %}
+              No active campaign
+              {% endfor %}
+            </div>
+         </div>
+    </div>
+    <div class="mb-4 col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body fw-500">
+              <div class="mb-3 text-muted text-uppercase">
+                Past Campaigns
+              </div>
+              {% for campaign in past_campaigns %}
+              <div class="card mb-2 shadow-s">
+                <div class="card-body d-flex justify-content-between">
+                  <span class="text-uppercase mr-2">
+                    {{campaign.campaign_ref}}
+                  </span>
+                  <a class="text-decoration-none" href="{% url 'campaign_detail' campaign.four_digit_id %}">
+                    Details
+                  </a>
+                </div>
+              </div>
+              {% empty %}
+              No past campaign
+              {% endfor %}
+            </div>
+         </div>
+    </div>
+</div>
+{% endblock %}

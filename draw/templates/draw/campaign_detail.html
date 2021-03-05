@@ -1,0 +1,43 @@
+{% extends 'wallet/base_dashboard.html' %}
+{% load humanize %}
+{% block maincontent %}
+<div class="heading row mb-5">
+    <div class="col-12 col-lg-6 mb-3">
+      <div class="fw-500 mb-3 fs-3">
+        Campaign Detail [{% if campaign.is_active %}Active{% else%} Expired{% endif %} Raffle]
+      </div>
+      <div class="fs-5 text-muted ">You can view more about {{campaign.campaign_ref}} here.</div>
+      {% if campaign.is_active and not can_buy_ticket %}
+      <div class="fs-5 text-danger ">You need to fund your wallet to continue.</div>
+      {% endif %}
+    {% if can_buy_ticket %}
+    <div class="col-12 col-lg-6 d-flex align-items-end justify-content-lg-center">
+      <form id="id_buy_ticket" class="d-none" action="{% url 'buy_ticket' campaign.four_digit_id %}" method="post">{% csrf_token %}</form>
+      <button onclick="(function buyTicket(){document.getElementById('id_buy_ticket').submit()})();" class="btn btn-primary">Buy Ticket</button>
+    </div>
+    {% endif%}
+</div>
+<div class="mb-3 fs-5">
+  <span class="fw-500">Ticket Price:</span> ₦ {{campaign.ticket_price|floatformat:2|intcomma}}
+  <span class="ms-2"></span>
+  <span class="fw-500">Campaign Start:</span> {{campaign.start_date}}
+  <span class="ms-2"></span>
+  <span class="fw-500">Campaign End:</span> {{campaign.end_date}}
+</div>
+<div class="fs-4 fw-600 mb-3">
+  Tickets
+</div>
+<div class="row g-4">
+  {% for  ticket in user_tickets %}
+  <div class="col-12 col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body text-uppercase">
+        <div class="fw-500">Ticket Ref:</div> {{ticket.ticket_ref}}
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col fs-5">You have no tickets in this campaign.</div>
+  {% endfor %}
+</div>
+{% endblock %}
