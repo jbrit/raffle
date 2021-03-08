@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('core.urls')),
     path('dashboard/', include('wallet.urls')),
     path('dashboard/', include('draw.urls')),
+    path('dashboard/', include('transaction.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

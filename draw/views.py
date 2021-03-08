@@ -41,7 +41,6 @@ class UserCampaignDetailView(CustomLoginRequiredMixin, DetailView):
 @login_required
 def buy_ticket(request, id):
     campaign_instance = get_object_or_404(RaffleCampaign, id=int(id))
-    print(campaign_instance.can_buy_ticket(request.user))
     if request.method == "POST" and campaign_instance.can_buy_ticket(request.user):
         campaign_instance.buy_ticket(request.user)
         return redirect("campaign_detail", id=id)

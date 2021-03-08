@@ -7,7 +7,7 @@ from core.forms import SignUpForm
 from core.tokens import account_activation_token
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth import get_user_model
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
@@ -100,4 +100,6 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super().get(request, *args, **kwargs)
-        
+
+class SettingsView(TemplateView):
+    template_name = 'core/settings.html'

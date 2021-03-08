@@ -56,7 +56,6 @@ class Profile(models.Model):
     level = models.CharField("Level", choices=levels.choices, default=levels.choices[0][0], max_length=3)
     
 
-    # create more user related info
     def get_full_name(self):
         return f"{self.first_name.capitalize()} {self.last_name.capitalize()}"
         

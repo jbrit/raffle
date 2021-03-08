@@ -4,4 +4,5 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url="/login/")
 def dashboard_view(request):
-    return render(request, "wallet/dashboard_home.html")
+    tickets = request.user.ticket_set.all()
+    return render(request, "core/dashboard_home.html")

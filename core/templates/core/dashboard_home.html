@@ -1,4 +1,4 @@
-{% extends 'wallet/base_dashboard.html' %}
+{% extends 'core/base_dashboard.html' %}
 {% load humanize %}
 {% block maincontent %}
 <div class="heading mb-5">
@@ -17,7 +17,7 @@
                 <div class="mb-3 d-flex fs-2">
                     <span class="me-2">₦</span><span>{{ request.user.wallet.balance|floatformat:2|intcomma }}</span>
                 </div>
-                <a class="text-decoration-none" href="#fund-wallet">
+                <a class="text-decoration-none" href="{% url 'transaction_create' %}">
                     Fund Wallet
                 </a>
             </div>
@@ -30,7 +30,7 @@
             Pending Transactions
           </div>
           <div class="mb-3 d-flex fs-2">No Transaction Pending</div>
-          <a class="text-decoration-none" href="#transactions"
+          <a class="text-decoration-none" href="{% url 'transactions' %}"
             >View all Transactions</a
           >
         </div>

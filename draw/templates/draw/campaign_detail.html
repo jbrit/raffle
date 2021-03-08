@@ -1,4 +1,4 @@
-{% extends 'wallet/base_dashboard.html' %}
+{% extends 'core/base_dashboard.html' %}
 {% load humanize %}
 {% block maincontent %}
 <div class="heading row mb-5">
@@ -10,6 +10,7 @@
       {% if campaign.is_active and not can_buy_ticket %}
       <div class="fs-5 text-danger ">You need to fund your wallet to continue.</div>
       {% endif %}
+    </div>
     {% if can_buy_ticket %}
     <div class="col-12 col-lg-6 d-flex align-items-end justify-content-lg-center">
       <form id="id_buy_ticket" class="d-none" action="{% url 'buy_ticket' campaign.four_digit_id %}" method="post">{% csrf_token %}</form>

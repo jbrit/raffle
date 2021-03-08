@@ -1,12 +1,16 @@
 import os
 import dj_database_url
 from pathlib import Path
+import dotenv
+
+dotenv.load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','dev_secret_key')
 
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+FLUTTERWAVE_PRODUCTION = os.environ.get('FLUTTERWAVE_PRODUCTION', '') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost, 127.0.0.1').split(', ')
 
@@ -22,6 +26,7 @@ INSTALLED_APPS = [
 
     'core.apps.CoreConfig',
     'draw.apps.DrawConfig',
+    'transaction.apps.TransactionConfig',
     'wallet.apps.WalletConfig',
 ]
 
@@ -107,3 +112,6 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'TestEmail@raffle.com')
 # Some Development settings
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+FLUTTERWAVE_SECRET_KEY = os.environ.get('FLUTTERWAVE_PRODUCTION_SECRET_KEY','') if FLUTTERWAVE_PRODUCTION else os.environ.get('FLUTTERWAVE_TEST_SECRET_KEY','')
+ENV_ID =  os.environ.get('ENV_ID', 0)

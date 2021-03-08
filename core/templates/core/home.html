@@ -1,11 +1,33 @@
 {% extends 'core/base.html' %}
 {% block body %}
-<div class="text-2xl">Current Home Page</div>
-{% if request.user.is_authenticated %}
-Logged in as: {{request.user.profile.first_name}} {{request.user.profile.last_name}}
-<a href="{% url 'dashboard' %}">Dashboard</a>
-<a href="{% url 'logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}">Login</a>
-{% endif %}
+<div class="bg-dark text-white text-center w-100 ">
+    <div class="container d-flex min-vh-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+      <div>
+        <h3 class="float-md-start mb-0">Raffle</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="text-white nav-link" href="#">Home</a>
+          <a class="text-white nav-link" href="#">About</a>
+          {% if request.user.is_authenticated %}
+          <a class="text-white nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          {% else %}
+          <a class="text-white nav-link" href="{% url 'login' %}">Login</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+  
+    <main class="px-3">
+      <h1>Raffle </h1>
+      <p class="lead">This is raffle, register to get started, buy tickets and bid for amazing prices.</p>
+      <p class="lead">
+        <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+      </p>
+    </main>
+  
+    <footer class="bg-dark mt-auto text-white-50">
+      <p>&copy; Copyright 2021. Developed by <a href="https://jbritz.tech/" class="text-white">jbritz</a>.</p>
+    </footer>
+    </div>
+</div>
 {% endblock body%}
