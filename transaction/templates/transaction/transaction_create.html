@@ -1,0 +1,24 @@
+{% extends 'core/base_dashboard.html' %}
+{% block maincontent %}
+<div class="heading mb-5">
+    <div class="fw-500 mb-3 fs-3">
+      Transactions
+    </div>
+    <div class="fs-5 text-muted">You can create a new transaction here.</div>
+</div>
+<div class="row g-4">
+    <div class="col-12 col-md-8 col-lg-6 mx-auto ">
+        
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-2">
+                    <label for="id_amount">Amount:</label>
+                    <input class="form-control" type="text" pattern="\d+" name="amount" required id="id_amount">
+                </div>
+                <button class="btn btn-primary" type="submit">Create Transaction</button>
+            </form>
+        
+    </div>
+
+</div>
+{% endblock %}

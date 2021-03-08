@@ -1,0 +1,27 @@
+{% extends 'core/base_dashboard.html' %}
+{% block maincontent %}
+<div class="heading mb-5">
+    <div class="fw-500 mb-3 fs-3">
+      Transactions
+    </div>
+    <div class="fs-5 text-muted">You can view more about {{transaction.tx_ref}} here.</div>
+</div>
+<div class="row g-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">{{transaction.tx_ref}}(N{{transaction.amount}})
+            {% if transaction.is_verified %}
+            <div class="text-success">
+                Verified
+            </div>
+            {% else %}
+            <div class="text-danger">
+                <a href="{{transaction_link}}">Complete Payment</a>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
