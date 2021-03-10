@@ -1,20 +1,24 @@
 <div class="sidebar d-none d-md-flex flex-column">
     <a
-      class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded active-side-link bg-white shadow-sm"
+     id="home"
+      class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
       href="{% url 'dashboard' %}"
       >Home</a
     >
     <a
+     id="transactions"
       class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
       href="{% url 'transactions' %}"
       >Transactions</a
     >
     <a
+     id="campaigns"
       class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
       href="{% url 'campaigns' %}"
       >Campaigns</a
     >
     <a
+     id="settings"
       class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
       href="{% url 'settings' %}"
       >Settings</a

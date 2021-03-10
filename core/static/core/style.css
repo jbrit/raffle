@@ -1,3 +1,6 @@
+*{
+    user-select: none;
+}
 .text-main-color {
     color: #2b3a49;
 }
@@ -9,10 +12,12 @@
     color: #7c889d;
 }
 .active-side-link {
-    color: #1d222c;
+    color: #fff;
+    background-color: #2b2b3c;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
 }
 .active-side-link:hover {
-    color: #1d222c;
+    color: #fff;
 }
 
 /* Font Weight */
@@ -34,4 +39,93 @@
 /* Min height */
 .min-h-screen{
     min-height: 100vh;
+}
+
+.card{
+    background-color: #2b2b3c;
+    border: none;
+}
+
+input.my-form-control, select.my-form-control{
+    border: none!important;
+    color: #fff;
+    background-color: #2b2b3c !important;
+    width: 100%;
+    border-radius: 5px;
+    padding: .375rem .75rem;
+    transition: background-color .25s ease;
+}
+
+input.my-form-control:-webkit-autofill,
+input.my-form-control:-webkit-autofill:hover, 
+input.my-form-control:-webkit-autofill:focus, 
+input.my-form-control:-webkit-autofill:active
+{
+ -webkit-box-shadow: 0 0 0 30px white inset !important;
+ background-color: #2b2b3c;
+}
+
+.slide-up{
+    position: relative;
+    transform: translateY(100%);
+    --slideHeight: 100%;
+}
+span.slide-up{
+    display: inline-block;
+}
+.slide-up::after{
+    content: "";
+    height: var(--slideHeight);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #1e1e2a;
+}
+
+/* Nav Link */
+.custom-nav-link{
+    position: relative;
+    margin: 0 2px;
+}
+.custom-nav-link::after{
+    content: "";
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .25s;
+}
+.custom-nav-link:hover:after{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Countdown */
+.time-box{
+    width: 20%;
+    position: relative;
+    max-width: 100px;
+    font-size: 36px;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.05);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    border: white 1px solid;
+}
+.time-box .label{
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+
+}
+.countdown-container{
+    max-width: 700px;
 }

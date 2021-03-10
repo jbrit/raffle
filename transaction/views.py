@@ -16,6 +16,12 @@ class UserTransactionsView(CustomLoginRequiredMixin, ListView):
     def get_queryset(self):
         return Transaction.objects.filter(made_by=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["pending_transactions"] = self.get_queryset().filter(is_verified=False)
+        context["verified_transactions"] = self.get_queryset().filter(is_verified=True)
+        return context
+
 
 class UserTransactionDetailView(CustomLoginRequiredMixin, DetailView):
     model = Transaction

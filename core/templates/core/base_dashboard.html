@@ -1,10 +1,9 @@
 {% extends 'core/base.html' %}
 {% block body %}
-<nav class="navbar navbar-light shadow-sm bg-white mb-5 py-3">
+<nav style=" background-color: #292939;" class="navbar navbar-dark shadow-sm mb-5 py-3">
     <div class="container">
       <a class="navbar-brand fs-3 fw-bold" href="{% url 'home' %}">
-        <!-- <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-top"> -->
-        Raffle
+        Ralph
       </a>
     </div>
   </nav>
@@ -18,3 +17,15 @@
     </div>
   </section>
 {% endblock body%}
+{% block scripts %}
+<script>
+  // Set active nav element
+  var current = window.location.href.split('/')[4];
+  function setActive(current){
+    const activeNav = document.getElementById(current);
+    activeNav.classList.remove("side-link");
+    activeNav.classList.add("active-side-link");
+  }
+  setActive(current ? current : "home");
+</script>
+{% endblock scripts %}

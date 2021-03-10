@@ -8,23 +8,23 @@
         
         <div class="col-12 col-md-6">
             <label for="id_first_name" class="form-label">First Name</label>
-            <input class="form-control" type="text" name="{{form.first_name.name}}" maxlength="20" required id="id_first_name">
+            <input class="my-form-control" type="text" name="{{form.first_name.name}}" maxlength="20" required id="id_first_name">
         </div>
         <div class="col-12 col-md-6">
             <label for="id_last_name" class="form-label">Last Name</label>
-            <input class="form-control" type="text" name="{{form.last_name.name}}" maxlength="20" required id="id_last_name">
+            <input class="my-form-control" type="text" name="{{form.last_name.name}}" maxlength="20" required id="id_last_name">
         </div>
         <div class="col-12 col-md-6">
             <label for="id_room_no" class="form-label">Room No</label>
-            <input class="form-control" type="text" name="{{form.room_no.name}}" maxlength="4" minlength="4" pattern="[a-gA-G]{1}[0-9]{3}" title="Please type a room number in this format: D208" required id="id_room_no">
+            <input class="my-form-control" type="text" name="{{form.room_no.name}}" maxlength="4" minlength="4" pattern="[a-gA-G]{1}[0-9]{3}" title="Please type a room number in this format: D208" required id="id_room_no">
         </div>
         <div class=" col-12 col-md-6">
             <label for="id_department" class="form-label">Department</label>
-            <input class="form-control" type="text" name="{{form.department.name}}" maxlength="50" required id="id_department">
+            <input class="my-form-control" type="text" name="{{form.department.name}}" maxlength="50" required id="id_department">
         </div>
         <div class="col-12 col-md-6">
             <label for="id_hall" class="form-label">Hall</label>
-            <select class="form-control" name="{{form.hall.name}}" id="id_hall">
+            <select class="my-form-control" name="{{form.hall.name}}" id="id_hall">
                 <option value="Daniel">Daniel</option>
                 <option value="Abraham">Abraham</option>
                 <option value="Joseph">Joseph</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-12 col-md-6">
             <label for="id_level" class="form-label">Level</label>
-            <select class="form-control" name="{{form.level.name}}" id="id_level">
+            <select class="my-form-control" name="{{form.level.name}}" id="id_level">
                 <option value="100">100</option>
                 <option value="200">200</option>
                 <option value="300">300</option>
@@ -46,7 +46,7 @@
         </div>
         <div class="col-12 col-md-6">
             <label for="name" class="form-label">Email</label>
-            <input class="form-control" name="{{form.email.name}}" type="email" required>
+            <input class="my-form-control" name="{{form.email.name}}" type="email" required>
             {% for error in form.email.errors %}
             <div class="d-block invalid-feedback">
                 {{error}}
@@ -55,7 +55,7 @@
         </div>
         <div class="col-12 col-md-6">
             <label for="name" class="form-label">Password</label>
-            <input class="form-control"  name="{{form.password1.name}}" type="password" required>
+            <input class="my-form-control"  name="{{form.password1.name}}" type="password" required>
             {% for error in form.password1.errors %}
             <div class="d-block invalid-feedback">
                 {{error}}
@@ -64,7 +64,7 @@
        </div>
        <div class="col-12 col-md-6">
            <label for="name" class="form-label">Confirm Password</label>
-           <input class="form-control"  name="{{form.password2.name}}" type="password" required>
+           <input class="my-form-control"  name="{{form.password2.name}}" type="password" required>
            {% for error in form.password2.errors %}
             <div class="d-block invalid-feedback">
                 {{error}}

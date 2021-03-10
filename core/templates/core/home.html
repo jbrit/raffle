@@ -1,33 +1,97 @@
 {% extends 'core/base.html' %}
 {% block body %}
-<div class="bg-dark text-white text-center w-100 ">
-    <div class="container d-flex min-vh-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-      <div>
-        <h3 class="float-md-start mb-0">Raffle</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="text-white nav-link" href="#">Home</a>
-          <a class="text-white nav-link" href="#">About</a>
-          {% if request.user.is_authenticated %}
-          <a class="text-white nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-          {% else %}
-          <a class="text-white nav-link" href="{% url 'login' %}">Login</a>
-          {% endif %}
-        </nav>
+<div class="text-white text-center w-100 ">
+    <div style="height: 500px;" class="container d-flex p-3 mx-auto flex-column">
+      <header>
+        <div>
+          <h3 class="float-start mb-0">Ralph</h3>
+          <nav class="nav nav-masthead justify-content-center float-end">
+            <a class="text-white nav-link custom-nav-link" href="#">Home</a>
+            <a class="text-white nav-link custom-nav-link" href="#">About</a>
+            {% if request.user.is_authenticated %}
+            <a class="text-white nav-link custom-nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+            {% else %}
+            <a class="text-white nav-link custom-nav-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
+          </nav>
+        </div>
+      </header>
+    
+      <main class="my-auto px-3">
+        <h1 class="slide-up">Ralph </h1>
+        <p class="lead"><span class="slide-up">This is ralph,</span> <span class="fancy-line slide-up">register</span> <span class="slide-up">to get started,</span> <span class="fancy-line slide-up">buy tickets</span> <span class="slide-up">and bid for amazing prices.</span></p>
+        <p class="lead">
+          <a style="opacity: 0;" href="#" class="btn btn-primary fade-in">Learn more</a>
+        </p>
+      </main>
+
+    </div>
+    <div class="py-5" style="background-color: rgba(255,255,255,0.03);">
+      <div class="container">
+        <h3 class="text-center mb-5">Countdown to the next Raffle Draw</h3>
+        <div class="mx-auto countdown-container d-flex justify-content-between">
+          <div id="days" class="time-box">
+            <div class="label">Days</div>
+          </div>
+          <div id="hours" class="time-box">
+            <div class="label">Hours</div>
+          </div>
+          <div id="minutes" class="time-box">
+            <div class="label">Minutes</div>
+          </div>
+          <div id="seconds" class="time-box">
+            <div class="label">Seconds</div>
+          </div>
+          
+        </div>
       </div>
-    </header>
-  
-    <main class="px-3">
-      <h1>Raffle </h1>
-      <p class="lead">This is raffle, register to get started, buy tickets and bid for amazing prices.</p>
-      <p class="lead">
-        <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-      </p>
-    </main>
-  
-    <footer class="bg-dark mt-auto text-white-50">
+    </div>
+    <div class="py-5 bg-white"></div>
+    <footer class="mt-auto text-white-50 py-2">
       <p>&copy; Copyright 2021. Developed by <a href="https://jbritz.tech/" class="text-white">jbritz</a>.</p>
     </footer>
-    </div>
 </div>
 {% endblock body%}
+{% block scripts %} 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+<script>
+  var tl = gsap.timeline();
+  tl.to(".slide-up",{"--slideHeight": "0%", translateY: "0%", stagger: 0.2}).to(".fade-in",{opacity: 1})
+</script>
+<script>
+  // Countdown Script
+  const doubleNumber = num => String(num).length == 1 ? `0${num}` : `${num}`;
+  (function() {
+    // Set the date we're counting down to
+    var countDownDate = new Date("Jun 5, 2021 15:37:25").getTime();
+    
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+      
+      // Get todays date and time
+      var now = new Date().getTime();
+      
+      // Find the distance between now an the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in an element with id="demo"
+      document.getElementById("days").innerHTML = `<div class="label">Days</div>${days}`
+      document.getElementById("hours").innerHTML = `<div class="label">Hours</div>${doubleNumber(hours)}`
+      document.getElementById("minutes").innerHTML = `<div class="label">Minutes</div>${doubleNumber(minutes)}`
+      document.getElementById("seconds").innerHTML = `<div class="label">Seconds</div>${doubleNumber(seconds)}`
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        // Display Expired
+      }
+    }, 1000);
+  })();
+</script>
+{% endblock scripts %}

@@ -7,15 +7,30 @@
     </div>
     <div class="fs-5 text-muted">You can view all transactions here.</div>
   </div>
-  <div class="col-12 col-lg-6 mb-3 d-flex align-items-end justify-content-center"><a href="{% url 'transaction_create' %}" class="btn btn-primary">Create Transaction</a></div>
+  <div class="col-12 col-lg-6 mb-3 d-flex align-items-end justify-content-lg-center"><a href="{% url 'transaction_create' %}" class="btn btn-primary">Create Transaction</a></div>
 </div>
 <div class="row g-4">
-  {% for transaction in transactions %}
-  <div class="col-12">
+  <div class="col-12 col-lg-6">
+    <div class="text-uppercase text-muted fw-500 mb-3">Pending Transactions</div>
+    {% for transaction in pending_transactions %}
     <div class="card">
-      <div class="card-body d-flex justify-content-between">(N{{transaction.amount}}) {% if transaction.is_verified %}<span class="text-success">Verified</span>{% endif %} <a href="{% url 'transaction_detail' transaction.eight_digit_id %}">Details</a></div>
+      <div class="card-body">
+        {{transaction.generated}}
+        <div class="d-flex justify-content-between">₦{{transaction.amount}}<a class="text-decoration-none" href="{% url 'transaction_detail' transaction.eight_digit_id %}">Payment Page</a></div>
+      </div>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
+  <div class="col-12 col-lg-6">
+    <div class="text-uppercase text-muted fw-500 mb-3">Verified Transactions</div>
+    {% for transaction in verified_transactions %}
+    <div class="card">
+      <div class="card-body">
+        {{transaction.generated}}
+        <div class="d-flex justify-content-between">₦{{transaction.amount}}<a class="text-decoration-none" href="{% url 'transaction_detail' transaction.eight_digit_id %}">Payment Page</a></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
