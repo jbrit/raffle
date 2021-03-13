@@ -5,8 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.mail import send_mail
-from django.conf import settings
+from .mailing import send_gmail
 
 from .managers import CustomUserManager
 from .validators import validate_room
@@ -26,12 +25,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def email_user(self, *args, **kwargs):
-        send_mail(
+        send_gmail(
             '{}'.format(args[0]), # Subject
             '{}'.format(args[1]), # Message
-            settings.EMAIL_HOST_USER, # From mail
-            [self.email],
-            fail_silently=False,
+            self.email,
             )
 
 

@@ -45,7 +45,8 @@
     background-color: #2b2b3c;
     border: none;
 }
-
+.form-group input,
+.form-group select,
 input.my-form-control, select.my-form-control{
     border: none!important;
     color: #fff;
@@ -56,12 +57,12 @@ input.my-form-control, select.my-form-control{
     transition: background-color .25s ease;
 }
 
+.form-group input,
 input.my-form-control:-webkit-autofill,
 input.my-form-control:-webkit-autofill:hover, 
 input.my-form-control:-webkit-autofill:focus, 
 input.my-form-control:-webkit-autofill:active
 {
- -webkit-box-shadow: 0 0 0 30px white inset !important;
  background-color: #2b2b3c;
 }
 
@@ -128,4 +129,19 @@ span.slide-up{
 }
 .countdown-container{
     max-width: 700px;
+}
+
+/* Settings style */
+.nav-tabs{
+    border-color: #292939;
+}
+
+.nav-tabs .nav-item .nav-link{
+    color: #fff;
+}
+
+.nav-tabs .nav-item .nav-link.active{
+    color: #fff;
+    background-color: #292939;
+    border-color: #292939;
 }

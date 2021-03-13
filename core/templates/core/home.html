@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block body %}
 <div class="text-white text-center w-100 ">
     <div style="height: 500px;" class="container d-flex p-3 mx-auto flex-column">
@@ -46,9 +47,21 @@
         </div>
       </div>
     </div>
-    <div class="py-5 bg-white"></div>
+    <div class="py-5 bg-white text-dark">
+      <div class="container">
+        <h3 class="mb-5">Upcoming Raffle Prize</h3>
+        <div class="row">
+          <div class="col-12 col-md-6"><img style="object-fit: contain; height: 500px" class="w-100" src="{% static 'core/img/ipod.jpg' %}" alt="Ipod"></div>
+          <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="fw-500 fs-1">Ipod Touch 7th Gen</div>
+            <div class="fs-2">128GB</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
     <footer class="mt-auto text-white-50 py-2">
-      <p>&copy; Copyright 2021. Developed by <a href="https://jbritz.tech/" class="text-white">jbritz</a>.</p>
+      <p>&copy; Copyright 2021. Developed by <a target="__blank" href="https://jbritz.tech/" class="text-white">jbritz</a>.</p>
     </footer>
 </div>
 {% endblock body%}

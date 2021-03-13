@@ -5,10 +5,13 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from core.forms import SignUpForm
 from core.tokens import account_activation_token
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth import get_user_model
-from django.views.generic import RedirectView, TemplateView
+from django.contrib.auth import login, logout, authenticate, get_user_model, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.views.generic import RedirectView, TemplateView, UpdateView
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Profile, CustomUser
+from .mixins import CustomLoginRequiredMixin
 
 
 # No logged in user
@@ -95,11 +98,44 @@ def login_view(request):
 
 
 class LogoutView(RedirectView):
-    url = '/'
+    url = reverse_lazy("login")
 
     def get(self, request, *args, **kwargs):
         logout(request)
         return super().get(request, *args, **kwargs)
 
-class SettingsView(TemplateView):
-    template_name = 'core/settings.html'
+class SettingsView(CustomLoginRequiredMixin, RedirectView):
+    url = reverse_lazy("edit_profile")
+
+class EditProfileView(CustomLoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ["first_name", "last_name", "room_no", "department", "hall", "level"]
+    template_name = 'core/editprofile.html'
+    success_url = reverse_lazy("settings")
+    context_object_name = 'profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+
+class ChangePasswordView(CustomLoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = 'core/changepassword.html'
+    success_url = reverse_lazy("change_password")
+    form_class = PasswordChangeForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('dashboard')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'core/changepassword.html', {
+        'form': form
+    })

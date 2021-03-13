@@ -1,0 +1,52 @@
+{% extends 'core/settings.html' %}
+{% block settingscontent %}
+<div class="row">
+  <div class="col-12">
+    <form class="row g-4" method="post">
+      {% csrf_token %}
+      
+      <div class="col-12 col-md-6">
+        <label for="id_first_name" class="form-label">First Name</label>
+        <input value="{{object.first_name}}" class="my-form-control" type="text" name="{{form.first_name.name}}" maxlength="20" required id="id_first_name">
+    </div>
+    <div class="col-12 col-md-6">
+        <label for="id_last_name" class="form-label">Last Name</label>
+        <input value="{{object.last_name}}" class="my-form-control" type="text" name="{{form.last_name.name}}" maxlength="20" required id="id_last_name">
+    </div>
+    <div class="col-12 col-md-6">
+        <label for="id_room_no" class="form-label">Room No</label>
+        <input value="{{object.room_no}}" class="my-form-control" type="text" name="{{form.room_no.name}}" maxlength="4" minlength="4" pattern="[a-gA-G]{1}[0-9]{3}" title="Please type a room number in this format: D208" required id="id_room_no">
+    </div>
+    <div class=" col-12 col-md-6">
+        <label for="id_department" class="form-label">Department</label>
+        <input value="{{object.department}}" class="my-form-control" type="text" name="{{form.department.name}}" maxlength="50" required id="id_department">
+    </div>
+    <div class="col-12 col-md-6">
+        <label for="id_hall" class="form-label">Hall</label>
+        <select class="my-form-control" name="{{form.hall.name}}" id="id_hall">
+            <option {% if object.hall == 'Daniel' %}selected{% endif %} value="Daniel">Daniel</option>
+            <option {% if object.hall == 'Abraham' %}selected{% endif %} value="Abraham">Abraham</option>
+            <option {% if object.hall == 'Joseph' %}selected{% endif %} value="Joseph">Joseph</option>
+            <option {% if object.hall == 'Isaac' %}selected{% endif %} value="Isaac">Isaac</option>
+            <option {% if object.hall == 'Dorcas' %}selected{% endif %} value="Dorcas">Dorcas</option>
+            <option {% if object.hall == 'Sarah' %}selected{% endif %} value="Sarah">Sarah</option>
+            <option {% if object.hall == 'Abigail' %}selected{% endif %} value="Abigail">Abigail</option>       
+        </select>
+    </div>
+    <div class="col-12 col-md-6">
+        <label for="id_level" class="form-label">Level</label>
+        <select class="my-form-control" name="{{form.level.name}}" id="id_level">
+            <option {% if object.level == '100' %}selected{% endif %} value="100">100</option>
+            <option {% if object.level == '200' %}selected{% endif %} value="200">200</option>
+            <option {% if object.level == '300' %}selected{% endif %} value="300">300</option>
+            <option {% if object.level == '400' %}selected{% endif %} value="400">400</option>
+            <option {% if object.level == '500' %}selected{% endif %} value="500">500</option>
+        </select>
+    </div>
+      
+      <div class="col"><button class="btn btn-primary" type="submit">Update Profile</button></div>
+    </form>
+    </div>
+  </div>
+</div>
+{% endblock settingscontent %}

@@ -115,3 +115,13 @@ if DEBUG:
 
 FLUTTERWAVE_SECRET_KEY = os.environ.get('FLUTTERWAVE_PRODUCTION_SECRET_KEY','') if FLUTTERWAVE_PRODUCTION else os.environ.get('FLUTTERWAVE_TEST_SECRET_KEY','')
 ENV_ID =  os.environ.get('ENV_ID', 0)
+
+# Mailing Set up
+GMAIL_USED = os.environ.get('GMAIL_USED', "") == "True"
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_USE_TLS=True
+EMAIL_USE_SSL=False
+EMAIL_PORT=587
+EMAIL_HOST_USER=os.environ.get("EMAIL_HOST_USER","")
+EMAIL_HOST_PASSWORD=os.environ.get("EMAIL_HOST_PASSWORD","")
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
