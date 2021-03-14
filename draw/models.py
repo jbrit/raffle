@@ -64,3 +64,18 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f"{self.buyer.email} {self.ticket_ref}"
+
+
+class ActiveRaffleCampaign(models.Model):
+    campaign = models.OneToOneField(RaffleCampaign, null=True, on_delete=models.SET_NULL)
+
+    def save(self, *args, **kwargs):
+        if not self.pk and ActiveRaffleCampaign.objects.exists():
+            raise ValidationError("Only One active campaign can exist")
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Active Raffle Campaign"
+
+    class Meta:
+        verbose_name_plural = "Active Raffle Campaign"
