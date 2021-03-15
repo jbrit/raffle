@@ -1,4 +1,5 @@
 {% extends 'core/base_dashboard.html' %}
+{% load humanize %}
 {% block maincontent %}
 <div class="heading row mb-5">
   <div class="col-12 col-lg-6 mb-3">
@@ -16,7 +17,7 @@
     <div class="card">
       <div class="card-body">
         {{transaction.generated}}
-        <div class="d-flex justify-content-between">₦{{transaction.amount}}<a class="text-decoration-none" href="{% url 'transaction_detail' transaction.eight_digit_id %}">Payment Page</a></div>
+        <div class="d-flex justify-content-between">₦{{transaction.amount|floatformat:2|intcomma}}<a class="text-decoration-none" href="{% url 'transaction_detail' transaction.eight_digit_id %}">Payment Page</a></div>
       </div>
     </div>
     {% endfor %}
@@ -27,7 +28,7 @@
     <div class="card">
       <div class="card-body">
         {{transaction.generated}}
-        <div class="d-flex justify-content-between">₦{{transaction.amount}}<a class="text-decoration-none" href="{% url 'transaction_detail' transaction.eight_digit_id %}">Payment Page</a></div>
+        <div class="d-flex justify-content-between">₦{{transaction.amount|floatformat:2|intcomma}}<a class="text-decoration-none" href="{% url 'transaction_detail' transaction.eight_digit_id %}">Payment Page</a></div>
       </div>
     </div>
     {% endfor %}

@@ -21,6 +21,9 @@
 }
 
 /* Font Weight */
+.fw-200{
+    font-weight: 200;
+}
 .fw-500 {
     font-weight: 500;
 }

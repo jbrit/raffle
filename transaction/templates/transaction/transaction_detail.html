@@ -1,4 +1,5 @@
 {% extends 'core/base_dashboard.html' %}
+{% load humanize %}
 {% block maincontent %}
 <div class="heading mb-5">
     <div class="fw-500 mb-3 fs-3">
@@ -9,14 +10,16 @@
 <div class="row g-4">
     <div class="col-12">
         <div class="card">
-            <div class="card-body">{{transaction.tx_ref}}(N{{transaction.amount}})
+            <div class="card-body">
+            <div class="fs-5">₦{{transaction.amount|floatformat:2|intcomma}}</div>
+            <div>{{transaction.generated}}</div>
             {% if transaction.is_verified %}
             <div class="text-success">
                 Verified
             </div>
             {% else %}
-            <div class="text-danger">
-                <a href="{{transaction_link}}">Complete Payment</a>
+            <div >
+                <a class="text-decoration-none" href="{{transaction_link}}">Complete Payment</a>
             </div>
             {% endif %}
             </div>

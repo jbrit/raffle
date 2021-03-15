@@ -14,6 +14,9 @@
                 <div class="form-group mb-2">
                     <label for="id_amount">Amount:</label>
                     <input class="my-form-control" type="text" pattern="\d+" name="amount" required id="id_amount">
+                    {% for error in form.errors %}
+                    <div class="text-danger">{{error}}</div>
+                    {% endfor %}
                 </div>
                 <button class="btn btn-primary" type="submit">Create Transaction</button>
             </form>

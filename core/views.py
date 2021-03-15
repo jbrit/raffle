@@ -11,6 +11,7 @@ from django.views.generic import RedirectView, TemplateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Profile, CustomUser
+from draw.models import ActiveRaffleCampaign
 from .mixins import CustomLoginRequiredMixin
 
 
@@ -19,7 +20,18 @@ def logged_out_user(user):
     return not user.is_authenticated
 
 def home_view(request):
-    return render(request,"core/home.html")
+    active_raffle = ActiveRaffleCampaign.object()
+    countdown_message = "Countdown to the next Raffle Draw" if active_raffle.is_upcoming else "Countdown to the end of Raffle Draw"
+    raffle_prize_title = "Upcoming Raffle Prize" if active_raffle.is_upcoming else "Current Raffle Prize"
+    countdown_time = active_raffle.campaign.start_date if active_raffle.is_upcoming else active_raffle.campaign.end_date
+    context = {
+        "active_raffle": ActiveRaffleCampaign.object(),
+        "countdown_message": countdown_message,
+        "countdown_time": countdown_time,
+        "raffle_prize_title": raffle_prize_title,
+        "additional_countdown_message": ""
+    }
+    return render(request,"core/home.html",context)
 
 
 @user_passes_test(logged_out_user,"/", redirect_field_name=None)

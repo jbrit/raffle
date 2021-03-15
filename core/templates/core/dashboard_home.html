@@ -44,6 +44,12 @@
               <div class="mb-3 text-muted text-uppercase">
                 Active Raffle
               </div>
+              {% if active_raffle and not active_raffle.is_past %}
+              
+              <a href="{% url 'campaign_detail' active_raffle.campaign.four_digit_id %}" class="mb-3 d-flex fs-2 text-uppercase text-decoration-none">{{active_raffle.campaign.campaign_ref}}</a>
+              {% else %}
+              <div class="mb-3 d-flex fs-2">No Active Raffle Draw</div>
+              {% endif %}
             </div>
          </div>
     </div>

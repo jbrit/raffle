@@ -4,12 +4,21 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
+class Prize(models.Model):
+    img_url = models.URLField(blank=False)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=50, blank=True)
+
+    def __str__(self):
+        return f"{self.name} | {self.description}"
+
+
 class RaffleCampaign(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     ticket_price = models.FloatField(default=500.0)
     winning_ticket = models.CharField(blank=True, max_length=20) # TODO: Winning Ticket Validator
-    # Products
+    prize = models.ForeignKey(Prize, null=True, on_delete=models.SET_NULL)
 
     @property
     def campaign_ref(self):
@@ -68,6 +77,22 @@ class Ticket(models.Model):
 
 class ActiveRaffleCampaign(models.Model):
     campaign = models.OneToOneField(RaffleCampaign, null=True, on_delete=models.SET_NULL)
+
+    @classmethod
+    def object(cls):
+        return cls._default_manager.all().first()
+
+    @property
+    def is_upcoming(self):
+        return self.campaign.start_date > timezone.now()
+
+    @property
+    def is_current(self):
+        return self.campaign.start_date <= timezone.now() and self.campaign.end_date >= timezone.now()
+
+    @property
+    def is_past(self):
+        return self.campaign.end_date < timezone.now()
 
     def save(self, *args, **kwargs):
         if not self.pk and ActiveRaffleCampaign.objects.exists():
