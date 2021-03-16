@@ -6,5 +6,7 @@ from draw.models import ActiveRaffleCampaign
 @login_required(login_url="/login/")
 def dashboard_view(request):
     active_raffle = ActiveRaffleCampaign.object()
-    context = {"active_raffle": active_raffle}
+    context = {
+        "active_raffle": active_raffle
+        }
     return render(request, "core/dashboard_home.html", context=context)

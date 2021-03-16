@@ -14,7 +14,7 @@
                 <div class="form-group mb-2">
                     <label for="id_amount">Amount:</label>
                     <input class="my-form-control" type="text" pattern="\d+" name="amount" required id="id_amount">
-                    {% for error in form.errors %}
+                    {% for error in form.amount.errors %}
                     <div class="text-danger">{{error}}</div>
                     {% endfor %}
                 </div>

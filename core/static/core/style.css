@@ -148,3 +148,29 @@ span.slide-up{
     background-color: #292939;
     border-color: #292939;
 }
+
+/* Modal */
+.open-modal{
+    overflow: hidden;
+}
+.open-modal #modal{
+    display: flex;
+}
+#modal{
+    display: none;
+}
+
+/* Buy Btn */
+.buy-btn{
+    background-color: green;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 140px;
+    width: 50%;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    /* transform: translate(-50%, -50%); */
+}

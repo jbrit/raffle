@@ -5,10 +5,11 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils import timezone
 
 from .flutterwave import get_payment_url, verify as flutterwave_verify
+from .validators import validate_transaction_amount
 
 
 class Transaction(models.Model):
-    amount = models.FloatField()
+    amount = models.FloatField(validators=[validate_transaction_amount])
     made_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="transaction", on_delete=models.CASCADE)
     is_verified = models.BooleanField(default=False)
     generated = models.DateTimeField(auto_now_add=True)

@@ -16,8 +16,8 @@ class Prize(models.Model):
 class RaffleCampaign(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    ticket_price = models.FloatField(default=500.0)
-    winning_ticket = models.CharField(blank=True, max_length=20) # TODO: Winning Ticket Validator
+    ticket_price = models.FloatField(default=200.0)
+    winning_ticket = models.CharField(blank=True, validators=[], max_length=20) # TODO: Winning Ticket Validator
     prize = models.ForeignKey(Prize, null=True, on_delete=models.SET_NULL)
 
     @property
@@ -48,6 +48,10 @@ class RaffleCampaign(models.Model):
         if self.start_date >= self.end_date:
             raise ValidationError({
                     'end_date': _('End date should come after the start date'),
+                })
+        if self.winning_ticket != "" and not self.ticket_set.filter(id=self.winning_ticket).exists():
+            raise ValidationError({
+                    'winning_ticket': _('The winning ticket must be from this raffle campaign'),
                 })
 
     def __str__(self):
@@ -104,3 +108,34 @@ class ActiveRaffleCampaign(models.Model):
 
     class Meta:
         verbose_name_plural = "Active Raffle Campaign"
+
+
+class UpcomingRaffleCampaign(models.Model):
+    campaign = models.OneToOneField(RaffleCampaign, null=True, on_delete=models.SET_NULL)
+
+    @classmethod
+    def object(cls):
+        return cls._default_manager.all().first()
+
+    @property
+    def is_upcoming(self):
+        return self.campaign.start_date > timezone.now()
+
+    @property
+    def is_current(self):
+        return self.campaign.start_date <= timezone.now() and self.campaign.end_date >= timezone.now()
+
+    @property
+    def is_past(self):
+        return self.campaign.end_date < timezone.now()
+
+    def save(self, *args, **kwargs):
+        if not self.pk and UpcomingRaffleCampaign.objects.exists():
+            raise ValidationError("Only One upcoming campaign can exist")
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Upcoming Raffle Campaign"
+
+    class Meta:
+        verbose_name_plural = "Upcoming Raffle Campaign"
