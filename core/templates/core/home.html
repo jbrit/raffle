@@ -13,8 +13,8 @@
 </div>
 </div>
 <div class="text-white text-center w-100 ">
-    <div style="height: 500px;" class="container d-flex p-3 mx-auto flex-column">
-      <header>
+    <div style="height: 400px;" class="container d-flex p-3 mx-auto flex-column">
+      <header class="mb-3">
         <div>
           <h3 class="float-start mb-0">Ralph</h3>
           <nav class="nav nav-masthead justify-content-center float-end">
@@ -29,11 +29,16 @@
         </div>
       </header>
     
-      <main class="my-auto px-3">
+      <main class="my-auto h-100 position-relative d-flex align-items-center justify-content-center px-3">
+        <div class="position-absolute h-100 d-flex">
+          {% for prize_url in prize_urls %}
+          <img style="object-fit: cover;" class="w-100 h-100" src="{{prize_url}}" alt="{{upcoming_raffle.campaign.prize.name}}">
+          {% endfor %}
+        </div>
         <h1 class="slide-up d-none ">Ralph </h1>
         <p class="lead d-none"><span class="slide-up">This is ralph,</span> <span class="fancy-line slide-up">register</span> <span class="slide-up">to get started,</span> <span class="fancy-line slide-up">buy tickets</span> <span class="slide-up">and bid for amazing prices.</span></p>
-        <p class="lead">
-          <a href="javascript: openModal()" class="btn btn-primary fade-in">Learn more</a>
+        <p style="z-index: 1;" class="lead position-relative rounded-0">
+          <a href="javascript: openModal()" style="background-color: rgba(0,0,0,0.3); color: white; border-color: white; border-radius: 0; box-shadow: none;" class="btn btn-lg btn-outline-secondary fade-in">Learn more</a>
         </p>
       </main>
 
@@ -182,13 +187,13 @@
       if (distance < 0) {
         clearInterval(x);
         // Display Expired
-        countDownContainer.parentElement.innerHTML += "<div class='fs-4 pt-4'>The countdown has ended! <br>{{additional_countdown_message}}</div>";
+        countDownContainer.parentElement.innerHTML += "<div class='fs-4 pt-4'>The Raffle Draw has ended! <br>{{additional_countdown_message}}</div>";
       }
     }, 1000);
   })();
   (function() {
     // Set the date we're counting down to
-    var countDownDate = new Date("{{countdown_time|date:'M j, Y H:i:s'}}").getTime();
+    var countDownDate = new Date("{{upcoming_time|date:'M j, Y H:i:s'}}").getTime();
     
     // Update the count down every 1 second
     var y = setInterval(function() {
@@ -218,7 +223,7 @@
       if (distance < 0) {
         clearInterval(y);
         // Display Expired
-        upcoming.parentElement.innerHTML += "<div class='fs-4 pt-4'>The countdown has ended! <br>{{additional_countdown_message}}</div>";
+        upcoming.parentElement.innerHTML += "<div class='fs-4 pt-4'>The Raffle Draw Has Started! <br>{{additional_countdown_message}}</div>";
       }
     }, 1000);
   })();
@@ -227,7 +232,6 @@
   }
   function closeModal() {
     document.body.classList.remove("open-modal");
-    console.log("Modal closed");
   }
 
 </script>

@@ -11,7 +11,7 @@ from django.views.generic import RedirectView, TemplateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Profile, CustomUser
-from draw.models import ActiveRaffleCampaign, UpcomingRaffleCampaign
+from draw.models import ActiveRaffleCampaign, UpcomingRaffleCampaign, Prize
 from .mixins import CustomLoginRequiredMixin
 
 
@@ -24,14 +24,18 @@ def home_view(request):
     upcoming_raffle = UpcomingRaffleCampaign.object()
     countdown_message = "Countdown to the next Raffle Draw" if active_raffle.is_upcoming else "Countdown to the end of Raffle Draw"
     raffle_prize_title = "Upcoming Raffle Prize" if active_raffle.is_upcoming else "Current Raffle Prize"
-    countdown_time = active_raffle.campaign.start_date if active_raffle.is_upcoming else active_raffle.campaign.end_date
+    countdown_time = active_raffle.campaign.end_date
+    upcoming_time = upcoming_raffle.campaign.start_date
+    prize_urls = list(map(lambda prize: prize.img_url, Prize.objects.all()))
     context = {
         "active_raffle": active_raffle,
         "upcoming_raffle": upcoming_raffle,
         "countdown_message": countdown_message,
         "countdown_time": countdown_time,
+        "upcoming_time": upcoming_time,
         "raffle_prize_title": raffle_prize_title,
-        "additional_countdown_message": ""
+        "additional_countdown_message": "",
+        "prize_urls": prize_urls
     }
     return render(request,"core/home.html",context)
 
