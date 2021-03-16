@@ -9,13 +9,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','dev_secret_key')
 
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'Fals'
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 FLUTTERWAVE_PRODUCTION = os.environ.get('FLUTTERWAVE_PRODUCTION', '') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost, 127.0.0.1').split(', ')
 
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -125,3 +126,8 @@ EMAIL_PORT=587
 EMAIL_HOST_USER=os.environ.get("EMAIL_HOST_USER","")
 EMAIL_HOST_PASSWORD=os.environ.get("EMAIL_HOST_PASSWORD","")
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Cron Job
+CRONJOBS = [
+    ('* * * * *', 'draw.cron.announce_if_winner')
+]
