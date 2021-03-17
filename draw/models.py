@@ -17,9 +17,9 @@ class RaffleCampaign(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     ticket_price = models.FloatField(default=200.0)
-    winning_ticket = models.CharField(blank=True, validators=[], max_length=20) # TODO: Winning Ticket Validator
+    winning_ticket = models.CharField(blank=True, validators=[], max_length=6) # TODO: Winning Ticket Validator
     prize = models.ForeignKey(Prize, null=True, on_delete=models.SET_NULL)
-    winner_announced = models.BooleanField(default=False)
+    campaign_closed = models.BooleanField(default=False)
 
     @property
     def campaign_ref(self):
@@ -72,6 +72,10 @@ class Ticket(models.Model):
     @property
     def is_winning(self):
         return self.campaign.winning_ticket == self.ticket_ref
+
+    @property
+    def six_digit_id(self):
+        return f"{self.id:06d}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

@@ -44,7 +44,7 @@
 
     </div>
     <div class="py-5" style="background-color: rgba(255,255,255,0.03);">
-      <div class="container">
+      <div id="countdown-message" class="container">
         <h3 class="text-center mb-5">{{countdown_message}}</h3>
         <div style="opacity: 0;" id="countdown-container" class="mx-auto countdown-container d-flex justify-content-between">
           <div id="days" class="time-box">
@@ -145,13 +145,14 @@
 </div>
 {% endblock body%}
 {% block scripts %} 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script> -->
 <script>
   // var tl = gsap.timeline();
   // tl.to(".slide-up",{"--slideHeight": "0%", translateY: "0%", stagger: 0.2}).to(".fade-in",{opacity: 1})
 </script>
 <script>
   const countDownContainer = document.getElementById("countdown-container");
+  const countDownMessage = document.getElementById("countdown-message");
   const upcoming = document.getElementById("upcoming-countdown");
   // Countdown Script
   const doubleNumber = num => String(num).length == 1 ? `0${num}` : `${num}`;
@@ -178,16 +179,24 @@
       if (distance < 0) {days=hours=minutes=seconds=0}
 
       // Display the result in an element with id="demo"
-      document.getElementById("days").innerHTML = `<div class="label">Days</div>${days}`
-      document.getElementById("hours").innerHTML = `<div class="label">Hours</div>${doubleNumber(hours)}`
-      document.getElementById("minutes").innerHTML = `<div class="label">Minutes</div>${doubleNumber(minutes)}`
-      document.getElementById("seconds").innerHTML = `<div class="label">Seconds</div>${doubleNumber(seconds)}`
+      document.getElementById("days").innerHTML = `<div class="label">Days</div>${days}`;
+      document.getElementById("hours").innerHTML = `<div class="label">Hours</div>${doubleNumber(hours)}`;
+      document.getElementById("minutes").innerHTML = `<div class="label">Minutes</div>${doubleNumber(minutes)}`;
+      document.getElementById("seconds").innerHTML = `<div class="label">Seconds</div>${doubleNumber(seconds)}`;
 
       // If the count down is finished, write some text
       if (distance < 0) {
         clearInterval(x);
         // Display Expired
-        countDownContainer.parentElement.innerHTML += "<div class='fs-4 pt-4'>The Raffle Draw has ended! <br>{{additional_countdown_message}}</div>";
+        countDownContainer.parentElement.innerHTML += "<div class='fs-4 pt-4'>The Raffle Draw has ended! </div>";
+        function getWinner() {
+          fetch("{% url 'get_winner' %}")
+          .then(res => res.text())
+          .then(data => {
+            if(data.length>0 && data.length<60) countDownMessage.innerHTML+=`<div class='fs-4 pt-2'>The winner is ${data} </div>`;
+          })
+        }
+        getWinner();
       }
     }, 1000);
   })();
@@ -242,7 +251,15 @@
     controls: false,
     nav: false,
     autoplay: true,
-    items: 3,
+    items: 2,
+    responsive: {
+      768: {
+        items: 3,
+      },
+      992: {
+        items: 4,
+      }
+    }
   });
   </script
 </script>

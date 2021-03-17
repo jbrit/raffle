@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -11,7 +14,8 @@ from django.views.generic import RedirectView, TemplateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Profile, CustomUser
-from draw.models import ActiveRaffleCampaign, UpcomingRaffleCampaign, Prize
+from draw.models import ActiveRaffleCampaign, UpcomingRaffleCampaign, Prize, Ticket
+from draw.winner import announce_if_winner
 from .mixins import CustomLoginRequiredMixin
 
 
@@ -39,6 +43,13 @@ def home_view(request):
     }
     return render(request,"core/home.html",context)
 
+def get_winner(request):
+    announce_if_winner()
+    active_campaign = ActiveRaffleCampaign.object().campaign
+    if active_campaign.end_date > timezone.now():
+        raise Http404("The Winner Cannot Be Generated")
+    ticket = get_object_or_404(Ticket, id=active_campaign.winning_ticket)
+    return HttpResponse(ticket.buyer.profile.get_full_name())
 
 @user_passes_test(logged_out_user,"/", redirect_field_name=None)
 def signup_view(request):
