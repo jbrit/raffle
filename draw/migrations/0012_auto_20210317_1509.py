@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rafflecampaign',
             name='winning_ticket',
-            field=models.CharField(blank=True, max_length=6),
+            field=models.CharField(blank=True, max_length=16),
         ),
     ]
