@@ -3,7 +3,7 @@ import random
 from django.utils import timezone
 
 from core.mailing import send_gmail
-from draw.models import ActiveRaffleCampaign
+from draw.models import ActiveRaffleCampaign, Ticket
 
 def announce_if_winner():
     active_campaign = ActiveRaffleCampaign.object().campaign
@@ -15,9 +15,13 @@ def announce_if_winner():
                 return ""
             winner_id = random.choice(ticket_set).six_digit_id
             active_campaign.winning_ticket = winner_id
+        # Ensure there's a ticket ID
+        if not len(winner_id):
+            return ""
+        user_mail = Ticket.objects.get(id=winner_id).buyer.email
         # Send a mail to winner and close campaign
         send_gmail(f"Congratulations On Winning the Raffle Draw ({active_campaign.campaign_ref.upper()})",
         f"Your ticket: {active_campaign.campaign_ref.upper()}-{winner_id} was randomly selected as the winning ticket and you would receive the {active_campaign.prize.name} from Ralph.", 
-        "pro.ajibolaojo@gmail.com")
+        user_mail)
         active_campaign.campaign_closed = True
         active_campaign.save()
