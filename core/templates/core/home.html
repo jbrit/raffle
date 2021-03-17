@@ -30,13 +30,13 @@
       </header>
     
       <main class="my-auto h-100 position-relative d-flex align-items-center justify-content-center px-3">
-        <div class="position-absolute h-100 d-flex">
+        <div class="position-absolute h-100 d-flex my-slider">
           {% for prize_url in prize_urls %}
-          <img style="object-fit: cover;" class="w-100 h-100" src="{{prize_url}}" alt="{{upcoming_raffle.campaign.prize.name}}">
+          <div>
+            <img style="object-fit: cover;" class="w-100 h-100" src="{{prize_url}}" alt="{{upcoming_raffle.campaign.prize.name}}">
+          </div>
           {% endfor %}
         </div>
-        <h1 class="slide-up d-none ">Ralph </h1>
-        <p class="lead d-none"><span class="slide-up">This is ralph,</span> <span class="fancy-line slide-up">register</span> <span class="slide-up">to get started,</span> <span class="fancy-line slide-up">buy tickets</span> <span class="slide-up">and bid for amazing prices.</span></p>
         <p style="z-index: 1;" class="lead position-relative rounded-0">
           <a href="javascript: openModal()" style="background-color: rgba(0,0,0,0.3); color: white; border-color: white; border-radius: 0; box-shadow: none;" class="btn btn-lg btn-outline-secondary fade-in">Learn more</a>
         </p>
@@ -234,5 +234,16 @@
     document.body.classList.remove("open-modal");
   }
 
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+<script>
+  var slider = tns({
+    container: '.my-slider',
+    controls: false,
+    nav: false,
+    autoplay: true,
+    items: 3,
+  });
+  </script
 </script>
 {% endblock scripts %}

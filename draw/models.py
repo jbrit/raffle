@@ -19,6 +19,7 @@ class RaffleCampaign(models.Model):
     ticket_price = models.FloatField(default=200.0)
     winning_ticket = models.CharField(blank=True, validators=[], max_length=20) # TODO: Winning Ticket Validator
     prize = models.ForeignKey(Prize, null=True, on_delete=models.SET_NULL)
+    winner_announced = models.BooleanField(default=False)
 
     @property
     def campaign_ref(self):

@@ -174,3 +174,14 @@ span.slide-up{
     right: 0;
     /* transform: translate(-50%, -50%); */
 }
+
+/* Slider */
+.tns-outer{
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+button[data-action]{
+    display: none;
+}
