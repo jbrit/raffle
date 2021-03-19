@@ -185,3 +185,17 @@ span.slide-up{
 button[data-action]{
     display: none;
 }
+
+/* Mobile Nav */
+body.open-menu .mobile-nav {
+    transform: translateX(0%);
+}
+.mobile-nav {
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    max-width: 300px;
+    width: 100%;
+    background-color: #1b1b2a;
+
+    padding-top: 75px;
+}

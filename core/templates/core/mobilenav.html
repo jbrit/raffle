@@ -1,0 +1,27 @@
+<div style="z-index: 1; top: 0;" class="mobile-nav position-absolute min-vh-100 d-flex d-md-none flex-column px-3">
+    <a
+     class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
+     href="{% url 'dashboard' %}"
+     >Overview</a
+   >
+   <a
+     class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
+     href="{% url 'transactions' %}"
+     >Transactions</a
+   >
+   <a
+     class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
+     href="{% url 'campaigns' %}"
+     >Campaigns</a
+   >
+   <a
+     class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded side-link"
+     href="{% url 'settings' %}"
+     >Settings</a
+   >
+   <a
+     class="px-4 py-2 mb-3 fs-5 fw-600 text-decoration-none rounded text-danger"
+     href="{% url 'logout' %}"
+     >Logout</a
+   >
+</div>
