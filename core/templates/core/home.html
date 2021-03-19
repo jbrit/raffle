@@ -133,23 +133,19 @@
     <footer class="mt-auto text-white-50 pt-5">
       <div class="container">
         <div class="row mb-5">
-          <div class="col-12 px-4">
+          <div class="col-12 px-4 d-flex flex-column">
             <div class="fw-400 fs-5 mb-2">Quicklinks</div>
-            <a class="text-white text-decoration-none" href="mailto:ralphraffledraw@gmail.com">Contact Ralph</a>
+            <a class="text-white text-decoration-none mb-2" href="mailto:ralphraffledraw@gmail.com">Contact Ralph</a>
+            <a class="text-white text-decoration-none d-flex align-items-center justify-content-center" target="__blank" href="https://instagram.com/ralphbrook_/"><ion-icon style="font-size: 1.6rem;" name="logo-instagram"></ion-icon></a>
           </div>
         </div>
         <hr>
-        <p>&copy; Copyright Ralph 2021. Developed by <a target="__blank" href="https://jbritz.tech/" class="text-white">jbritz</a>.</p>
+        <p>&copy; Copyright Ralph 2021.</p>
       </div>
     </footer>
 </div>
 {% endblock body%}
 {% block scripts %} 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script> -->
-<script>
-  // var tl = gsap.timeline();
-  // tl.to(".slide-up",{"--slideHeight": "0%", translateY: "0%", stagger: 0.2}).to(".fade-in",{opacity: 1})
-</script>
 <script>
   const countDownContainer = document.getElementById("countdown-container");
   const countDownMessage = document.getElementById("countdown-message");
@@ -261,6 +257,6 @@
       }
     }
   });
-  </script
 </script>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 {% endblock scripts %}
