@@ -5,8 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .mailing import send_gmail
+from django.core.exceptions import ValidationError
 
+from .mailing import send_gmail
 from .managers import CustomUserManager
 from .validators import validate_room
 
@@ -66,3 +67,23 @@ def update_user_wallet_profile(sender, instance, created, **kwargs):
         Wallet.objects.create(owner=instance)
     instance.profile.save()
     instance.wallet.save()
+
+
+class LearnMore(models.Model):
+    text = models.TextField()
+
+    @classmethod
+    def object(cls):
+        return cls._default_manager.all().first()
+
+
+    def save(self, *args, **kwargs):
+        if not self.pk and LearnMore.objects.exists():
+            raise ValidationError("Only One learn more text can exist")
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Learn More"
+
+    class Meta:
+        verbose_name_plural = "Learn More"

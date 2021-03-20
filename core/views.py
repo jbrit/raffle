@@ -13,7 +13,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic import RedirectView, TemplateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Profile, CustomUser
+from .models import Profile, CustomUser, LearnMore
 from draw.models import ActiveRaffleCampaign, UpcomingRaffleCampaign, Prize, Ticket
 from draw.winner import announce_if_winner
 from .mixins import CustomLoginRequiredMixin
@@ -26,6 +26,8 @@ def logged_out_user(user):
 def home_view(request):
     active_raffle = ActiveRaffleCampaign.object()
     upcoming_raffle = UpcomingRaffleCampaign.object()
+    learn_more = "" if not LearnMore.object() else LearnMore.object().text
+    learn_more = "\n<br>\n".join(learn_more.splitlines())
     countdown_message = "Countdown to the next Raffle Draw" if active_raffle.is_upcoming else "Countdown to the end of Raffle Draw"
     raffle_prize_title = "Upcoming Raffle Prize" if active_raffle.is_upcoming else "Current Raffle Prize"
     countdown_time = active_raffle.campaign.end_date
@@ -38,7 +40,7 @@ def home_view(request):
         "countdown_time": countdown_time,
         "upcoming_time": upcoming_time,
         "raffle_prize_title": raffle_prize_title,
-        "additional_countdown_message": "",
+        "learn_more": learn_more,
         "prize_urls": prize_urls
     }
     return render(request,"core/home.html",context)

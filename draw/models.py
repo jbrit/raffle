@@ -86,6 +86,7 @@ class Ticket(models.Model):
 
 class ActiveRaffleCampaign(models.Model):
     campaign = models.OneToOneField(RaffleCampaign, null=True, on_delete=models.SET_NULL)
+    visible_countdown = models.BooleanField(default=True)
 
     @classmethod
     def object(cls):
@@ -117,6 +118,7 @@ class ActiveRaffleCampaign(models.Model):
 
 class UpcomingRaffleCampaign(models.Model):
     campaign = models.OneToOneField(RaffleCampaign, null=True, on_delete=models.SET_NULL)
+    visible_countdown = models.BooleanField(default=True) 
 
     @classmethod
     def object(cls):
