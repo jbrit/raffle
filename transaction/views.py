@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, Http404
 from django.urls import reverse_lazy
 
 from core.mixins import CustomLoginRequiredMixin
@@ -34,6 +34,11 @@ class UserTransactionDetailView(CustomLoginRequiredMixin, DetailView):
         link = self.get_object().get_payment_data(self.request)
         context["transaction_link"] = link if len(link) else "#"
         return context
+
+    def get(self, request, *args, **kwargs):
+        if self.get_object().made_by != request.user:
+            raise Http404("Not Permitted to view transaction")
+        return super().get(self, request, *args, **kwargs)
 
 
 class TransactionCreationView(CustomLoginRequiredMixin, CreateView):

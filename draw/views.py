@@ -21,7 +21,7 @@ class UserCampaignsView(CustomLoginRequiredMixin, ListView):
         return context
     
     def get_queryset(self):
-        return RaffleCampaign.objects.filter(end_date__gt=timezone.now())
+        return RaffleCampaign.objects.filter(end_date__gt=timezone.now(), start_date__lte=timezone.now())
 
 
 class UserCampaignDetailView(CustomLoginRequiredMixin, DetailView):
@@ -36,6 +36,11 @@ class UserCampaignDetailView(CustomLoginRequiredMixin, DetailView):
         context['can_buy_ticket'] = campaign.can_buy_ticket(self.request.user)
         context['user_tickets'] = Ticket.objects.filter(buyer=self.request.user, campaign=campaign)
         return context
+    
+    def get(self, request, *args, **kwargs):
+        if self.get_object().start_date > timezone.now():
+            raise Http404("Upcoming Campaign")
+        return super().get(request, *args, **kwargs)
 
 
 @login_required

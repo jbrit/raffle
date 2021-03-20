@@ -31,7 +31,7 @@ class RaffleCampaign(models.Model):
 
     @property
     def is_active(self):
-        return self.end_date > timezone.now()
+        return self.end_date > timezone.now() and self.start_date <= timezone.now()
 
     
     # Check if a user can buy a campaign ticket
