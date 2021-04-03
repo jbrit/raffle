@@ -4,7 +4,8 @@ from django.urls import reverse, resolve
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils import timezone
 
-from .flutterwave import get_payment_url, verify as flutterwave_verify
+from .flutterwave import verify as flutterwave_verify
+from .paystack import verify as paystack_verify, get_payment_url
 from .validators import validate_transaction_amount
 
 
@@ -14,9 +15,15 @@ class Transaction(models.Model):
     is_verified = models.BooleanField(default=False)
     generated = models.DateTimeField(auto_now_add=True)
 
-    def verify(self, tx_id):
+    def verify(self, tx_id=None, reference=None):
         if not self.is_verified:
             if flutterwave_verify(self, tx_id):
+                self.is_verified = True
+                self.save()
+                self.made_by.wallet.balance += self.amount
+                self.made_by.save()
+
+            if paystack_verify(self, reference):
                 self.is_verified = True
                 self.save()
                 self.made_by.wallet.balance += self.amount

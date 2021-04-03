@@ -55,6 +55,7 @@ class TransactionCreationView(CustomLoginRequiredMixin, CreateView):
 # TODO: login_required decorator
 def transaction_verification_view(request, id):
     transaction = get_object_or_404(Transaction, id=id)
-    tx_id = request.GET.get("transaction_id",0)
-    transaction.verify(tx_id)
+    tx_id = request.GET.get("transaction_id",None)
+    reference = request.GET.get("reference",None)
+    transaction.verify(tx_id,reference)
     return redirect('transaction_detail', id=transaction.eight_digit_id)

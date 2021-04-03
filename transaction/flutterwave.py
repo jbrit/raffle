@@ -33,6 +33,8 @@ def get_payment_url(transaction, user, redirect_url):
     return context
 
 def verify(transaction, tx_id):
+    if tx_id is None:
+        return False
     FLUTTER_VERIFICATION_ENDPOINT = f"https://api.flutterwave.com/v3/transactions/{tx_id}/verify"
     try:
         response = requests.get(FLUTTER_VERIFICATION_ENDPOINT, headers = {"Authorization": f"Bearer {settings.FLUTTERWAVE_SECRET_KEY}"})
