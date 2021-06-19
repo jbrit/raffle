@@ -1,80 +1,129 @@
-{% extends 'core/base.html' %}
-{% block body %}
+{% extends 'core/base.html' %} {% block body %}
 <div class="min-h-screen d-flex flex-column justify-content-center">
-    <div class="px-4 mx-auto w-100 max-w-signup fs-3 text-center fw-500 mb-3">Register</div>
-    {% if error %}{{error}}{% endif %}
-    <form class="row g-3 px-4 mx-auto w-100 max-w-signup" method="post">
-        {% csrf_token %}
-        
-        <div class="col-12 col-md-6">
-            <label for="id_first_name" class="form-label">First Name</label>
-            <input class="my-form-control" type="text" name="{{form.first_name.name}}" maxlength="20" required id="id_first_name">
-        </div>
-        <div class="col-12 col-md-6">
-            <label for="id_last_name" class="form-label">Last Name</label>
-            <input class="my-form-control" type="text" name="{{form.last_name.name}}" maxlength="20" required id="id_last_name">
-        </div>
-        <div class="col-12 col-md-6">
-            <label for="id_room_no" class="form-label">Room No</label>
-            <input class="my-form-control" type="text" name="{{form.room_no.name}}" maxlength="4" minlength="4" pattern="[a-gA-G]{1}[0-9]{3}" title="Please type a room number in this format: D208" required id="id_room_no">
-        </div>
-        <div class=" col-12 col-md-6">
-            <label for="id_department" class="form-label">Department</label>
-            <input class="my-form-control" type="text" name="{{form.department.name}}" maxlength="50" required id="id_department">
-        </div>
-        <div class="col-12 col-md-6">
-            <label for="id_hall" class="form-label">Hall</label>
-            <select class="my-form-control" name="{{form.hall.name}}" id="id_hall">
-                <option value="Daniel">Daniel</option>
-                <option value="Abraham">Abraham</option>
-                <option value="Joseph">Joseph</option>
-                <option value="Isaac">Isaac</option>
-                <option value="Dorcas">Dorcas</option>
-                <option value="Sarah">Sarah</option>
-                <option value="Abigail">Abigail</option>       
-            </select>
-        </div>
-        <div class="col-12 col-md-6">
-            <label for="id_level" class="form-label">Level</label>
-            <select class="my-form-control" name="{{form.level.name}}" id="id_level">
-                <option value="100">100</option>
-                <option value="200">200</option>
-                <option value="300">300</option>
-                <option value="400">400</option>
-                <option value="500">500</option>
-            </select>
-        </div>
-        <div class="col-12 col-md-6">
-            <label for="name" class="form-label">Email</label>
-            <input class="my-form-control" name="{{form.email.name}}" type="email" required>
-            {% for error in form.email.errors %}
-            <div class="d-block invalid-feedback">
-                {{error}}
-              </div>
-            {% endfor %}
-        </div>
-        <div class="col-12 col-md-6">
-            <label for="name" class="form-label">Password</label>
-            <input class="my-form-control"  name="{{form.password1.name}}" type="password" required>
-            {% for error in form.password1.errors %}
-            <div class="d-block invalid-feedback">
-                {{error}}
-              </div>
-            {% endfor %}
-       </div>
-       <div class="col-12 col-md-6">
-           <label for="name" class="form-label">Confirm Password</label>
-           <input class="my-form-control"  name="{{form.password2.name}}" type="password" required>
-           {% for error in form.password2.errors %}
-            <div class="d-block invalid-feedback">
-                {{error}}
-              </div>
-            {% endfor %}
-        </div>
-        <button class="btn btn-primary" type="submit">Register</button>
-        <div class="text-center">
-            Have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login</a>
-        </div>
-    </form>
+  <div class="px-4 mx-auto w-100 max-w-signup fs-3 text-center fw-500 mb-3">
+    Register
+  </div>
+  {% if error %}{{error}}{% endif %}
+  <form class="row g-3 px-4 mx-auto w-100 max-w-signup" method="post">
+    {% csrf_token %}
+
+    <div class="col-12 col-md-6">
+      <label for="id_first_name" class="form-label">First Name</label>
+      <input
+        class="my-form-control"
+        type="text"
+        name="{{form.first_name.name}}"
+        maxlength="20"
+        required
+        id="id_first_name"
+      />
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="id_last_name" class="form-label">Last Name</label>
+      <input
+        class="my-form-control"
+        type="text"
+        name="{{form.last_name.name}}"
+        maxlength="20"
+        required
+        id="id_last_name"
+      />
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="id_room_no" class="form-label">Room No</label>
+      <input
+        class="my-form-control"
+        type="text"
+        name="{{form.room_no.name}}"
+        maxlength="4"
+        minlength="4"
+        pattern="[a-gA-G]{1}[0-9]{3}"
+        title="Please type a room number in this format: D208"
+        required
+        id="id_room_no"
+      />
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="id_department" class="form-label">Department</label>
+      <input
+        class="my-form-control"
+        type="text"
+        name="{{form.department.name}}"
+        maxlength="50"
+        required
+        id="id_department"
+      />
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="id_hall" class="form-label">Hall</label>
+      <select class="my-form-control" name="{{form.hall.name}}" id="id_hall">
+        <option value="Daniel">Daniel</option>
+        <option value="Abraham">Abraham</option>
+        <option value="Joseph">Joseph</option>
+        <option value="Isaac">Isaac</option>
+        <option value="Dorcas">Dorcas</option>
+        <option value="Sarah">Sarah</option>
+        <option value="Abigail">Abigail</option>
+      </select>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="id_level" class="form-label">Level</label>
+      <select class="my-form-control" name="{{form.level.name}}" id="id_level">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+        <option value="400">400</option>
+        <option value="500">500</option>
+      </select>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="name" class="form-label">Email</label>
+      <input
+        class="my-form-control"
+        name="{{form.email.name}}"
+        type="email"
+        required
+      />
+      {% for error in form.email.errors %}
+      <div class="d-block invalid-feedback">{{error}}</div>
+      {% endfor %}
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="name" class="form-label">Password</label>
+      <input
+        class="my-form-control"
+        name="{{form.password1.name}}"
+        type="password"
+        required
+      />
+      {% for error in form.password1.errors %}
+      <div class="d-block invalid-feedback">{{error}}</div>
+      {% endfor %}
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="name" class="form-label">Confirm Password</label>
+      <input
+        class="my-form-control"
+        name="{{form.password2.name}}"
+        type="password"
+        required
+      />
+      {% for error in form.password2.errors %}
+      <div class="d-block invalid-feedback">{{error}}</div>
+      {% endfor %}
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="student_status" class="form-label">Student Status</label>
+      <select class="my-form-control" id="student_status">
+        <option value="LMU">Landmark University</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Register</button>
+    <div class="text-center">
+      Have an account?
+      <a href="{% url 'login' %}" class="text-decoration-none">Login</a>
+    </div>
+  </form>
 </div>
 {% endblock body%}

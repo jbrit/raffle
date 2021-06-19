@@ -1,154 +1,279 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block body %}
-<div id="modal" style="background-color: rgba(0,0,0,0.5);z-index: 2;" class="min-vh-100 min-vw-100 position-fixed align-items-center justify-content-center">
-<div style="max-width: 80%; background-color: #1e1e2a;" class="p-5 text-center"><p class="fs-5">
-  {% autoescape off %}
-  {{learn_more}}
-  {% endautoescape %}
-</p>
-<a onclick="closeModal()" style="background-color: rgba(0,0,0,0.2);" class="text-decoration-none text-white py-2 px-3" href="#">Close <span style=" width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" class="p-1">X</span></a>
+{% extends 'core/base.html' %} {% load static %} {% block body %}
+<div
+  id="modal"
+  style="background-color: rgba(0, 0, 0, 0.5); z-index: 2"
+  class="
+    min-vh-100 min-vw-100
+    position-fixed
+    align-items-center
+    justify-content-center
+  "
+>
+  <div
+    style="max-width: 80%; background-color: #1e1e2a"
+    class="p-5 text-center"
+  >
+    <p class="fs-5">{% autoescape off %} {{learn_more}} {% endautoescape %}</p>
+    <a
+      onclick="closeModal()"
+      style="background-color: rgba(0, 0, 0, 0.2)"
+      class="text-decoration-none text-white py-2 px-3"
+      href="#"
+      >Close
+      <span
+        style="
+          width: 30px;
+          height: 30px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        "
+        class="p-1"
+        >X</span
+      ></a
+    >
+  </div>
 </div>
-</div>
-<div class="text-white text-center w-100 ">
-    <div style="height: 400px;" class="container d-flex p-3 mx-auto flex-column">
-      <header class="mb-3">
-        <div>
-          <h3 class="float-start mb-0 d-none">RalphBrooke</h3>
-          <div style="height: 50px" class="nav-logo float-start mb-0"><img style="object-fit: contain; height: 100%;" src="{% static 'core/img/logo.png' %}" /></div>
-          <nav class="nav nav-masthead justify-content-center float-end">
-            <a class="text-white nav-link custom-nav-link" href="#">Home</a>
-            <!-- <a class="text-white nav-link custom-nav-link" href="#">About</a> -->
-            {% if request.user.is_authenticated %}
-            <a class="text-white nav-link custom-nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-            {% else %}
-            <a class="text-white nav-link custom-nav-link" href="{% url 'login' %}">Login</a>
-            {% endif %}
-          </nav>
+<div class="text-white text-center w-100">
+  <div style="height: 400px" class="container d-flex p-3 mx-auto flex-column">
+    <header class="mb-3">
+      <div>
+        <h3 class="float-start mb-0 d-none">RalphBrooke</h3>
+        <div style="height: 50px" class="nav-logo float-start mb-0">
+          <img
+            style="object-fit: contain; height: 100%"
+            src="{% static 'core/img/logo.png' %}"
+          />
         </div>
-      </header>
-    
-      <main class="my-auto h-100 position-relative d-flex align-items-center justify-content-center px-3">
-        <div class="position-absolute h-100 d-flex my-slider">
-          {% for prize_url in prize_urls %}
-          <div>
-            <img style="object-fit: cover;" class="w-100 h-100" src="{{prize_url}}" alt="{{upcoming_raffle.campaign.prize.name}}">
-          </div>
-          {% endfor %}
-        </div>
-        <p style="z-index: 1;" class="lead position-relative rounded-0">
-          <a href="javascript: openModal()" style="background-color: rgba(0,0,0,0.3); color: white; border-color: white; border-radius: 0; box-shadow: none;" class="btn btn-lg btn-outline-secondary fade-in">Learn more</a>
-        </p>
-      </main>
+        <nav class="nav nav-masthead justify-content-center float-end">
+          <a class="text-white nav-link custom-nav-link" href="#">Home</a>
+          <!-- <a class="text-white nav-link custom-nav-link" href="#">About</a> -->
+          {% if request.user.is_authenticated %}
+          <a
+            class="text-white nav-link custom-nav-link"
+            href="{% url 'dashboard' %}"
+            >Dashboard</a
+          >
+          {% else %}
+          <a
+            class="text-white nav-link custom-nav-link"
+            href="{% url 'login' %}"
+            >Login</a
+          >
+          {% endif %}
+        </nav>
+      </div>
+    </header>
 
-    </div>
-    {% if active_raffle.visible_countdown %}
-    <div class="py-5" style="background-color: rgba(255,255,255,0.03);">
-      <div id="countdown-message" class="container">
-        <h3 class="text-center mb-5">{{countdown_message}}</h3>
-        <div style="opacity: 0;" id="countdown-container" class="mx-auto countdown-container d-flex justify-content-between">
-          <div id="days" class="time-box">
-            <div class="label">Days</div>
-          </div>
-          <div id="hours" class="time-box">
-            <div class="label">Hours</div>
-          </div>
-          <div id="minutes" class="time-box">
-            <div class="label">Minutes</div>
-          </div>
-          <div id="seconds" class="time-box">
-            <div class="label">Seconds</div>
-          </div>
-          
+    <main
+      class="
+        my-auto
+        h-100
+        position-relative
+        d-flex
+        align-items-center
+        justify-content-center
+        px-3
+      "
+    >
+      <div class="position-absolute h-100 d-flex my-slider">
+        {% for prize_url in prize_urls %}
+        <div>
+          <img
+            style="object-fit: cover"
+            class="w-100 h-100"
+            src="{{prize_url}}"
+            alt="{{upcoming_raffle.campaign.prize.name}}"
+          />
+        </div>
+        {% endfor %}
+      </div>
+      <p style="z-index: 1" class="lead position-relative rounded-0">
+        <a
+          href="javascript: openModal()"
+          style="
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border-color: white;
+            border-radius: 0;
+            box-shadow: none;
+          "
+          class="btn btn-lg btn-outline-secondary fade-in"
+          >Learn more</a
+        >
+      </p>
+    </main>
+  </div>
+  {% if active_raffle.visible_countdown %}
+  <div class="py-5" style="background-color: rgba(255, 255, 255, 0.03)">
+    <div id="countdown-message" class="container">
+      <h3 class="text-center mb-5">{{countdown_message}}</h3>
+      <div
+        style="opacity: 0"
+        id="countdown-container"
+        class="mx-auto countdown-container d-flex justify-content-between"
+      >
+        <div id="days" class="time-box">
+          <div class="label">Days</div>
+        </div>
+        <div id="hours" class="time-box">
+          <div class="label">Hours</div>
+        </div>
+        <div id="minutes" class="time-box">
+          <div class="label">Minutes</div>
+        </div>
+        <div id="seconds" class="time-box">
+          <div class="label">Seconds</div>
         </div>
       </div>
     </div>
-    {% endif %}
-    <div class="py-5">
-      <div class="container">
-        <h3 class="mb-5">Current Raffle Prize</h3>
-        <div class="row">
-          <div class="col-12 col-md-6 position-relative">
-            <img style="object-fit: cover; height: 500px" class="w-100" src="{{active_raffle.campaign.prize.img_url}}" alt="{{active_raffle.campaign.prize.name}}">
-            <a href="{% url 'campaign_detail' active_raffle.campaign.four_digit_id %}" class="buy-btn py-3 text-decoration-none text-white fw-500">
-              Buy Ticket <br> N{{active_raffle.campaign.ticket_price|floatformat:0}}
-            </a>
-          </div>
-          <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
-            <div class="fw-500 fs-1">{{active_raffle.campaign.prize.name}}</div>
-            <div class="fs-2">{{active_raffle.campaign.prize.description}}</div>
-          </div>
+  </div>
+  {% endif %}
+  <div class="py-5">
+    <div class="container">
+      <h3 class="mb-5">Current Raffle Prize</h3>
+      <div class="row">
+        <div class="col-12 col-md-6 position-relative">
+          <img
+            style="object-fit: cover; height: 500px"
+            class="w-100"
+            src="{{active_raffle.campaign.prize.img_url}}"
+            alt="{{active_raffle.campaign.prize.name}}"
+          />
+          <a
+            href="{% url 'campaign_detail' active_raffle.campaign.four_digit_id %}"
+            class="buy-btn py-3 text-decoration-none text-white fw-500"
+          >
+            Buy Ticket <br />
+            N{{active_raffle.campaign.ticket_price|floatformat:0}}
+          </a>
+        </div>
+        <div
+          class="
+            col-12 col-md-6
+            d-flex
+            flex-column
+            align-items-center
+            justify-content-center
+          "
+        >
+          <div class="fw-500 fs-1">{{active_raffle.campaign.prize.name}}</div>
+          <div class="fs-2">{{active_raffle.campaign.prize.description}}</div>
         </div>
       </div>
     </div>
-    {% if upcoming_raffle %}
-    <!-- Upcoming Start -->
-    {% if upcoming_raffle.visible_countdown %}
-    <div class="py-5" style="background-color: rgba(255,255,255,0.06);">
-      <div class="container">
-        <h3 class="text-center mb-5">Countdown to the next Raffle Draw</h3>
-        <div style="opacity: 0;" id="upcoming-countdown" class="mx-auto countdown-container d-flex justify-content-between">
-          <div id="days-u" class="time-box">
-            <div class="label">Days</div>
-          </div>
-          <div id="hours-u" class="time-box">
-            <div class="label">Hours</div>
-          </div>
-          <div id="minutes-u" class="time-box">
-            <div class="label">Minutes</div>
-          </div>
-          <div id="seconds-u" class="time-box">
-            <div class="label">Seconds</div>
-          </div>
-          
+  </div>
+  {% if upcoming_raffle %}
+  <!-- Upcoming Start -->
+  {% if upcoming_raffle.visible_countdown %}
+  <div class="py-5" style="background-color: rgba(255, 255, 255, 0.06)">
+    <div class="container">
+      <h3 class="text-center mb-5">Countdown to the next Raffle Draw</h3>
+      <div
+        style="opacity: 0"
+        id="upcoming-countdown"
+        class="mx-auto countdown-container d-flex justify-content-between"
+      >
+        <div id="days-u" class="time-box">
+          <div class="label">Days</div>
+        </div>
+        <div id="hours-u" class="time-box">
+          <div class="label">Hours</div>
+        </div>
+        <div id="minutes-u" class="time-box">
+          <div class="label">Minutes</div>
+        </div>
+        <div id="seconds-u" class="time-box">
+          <div class="label">Seconds</div>
         </div>
       </div>
     </div>
-    {% endif %}
-    <div class="py-5" style="background-color: rgba(255,255,255,0.03);">
-      <div class="container">
-        <h3 class="mb-5">Upcoming Raffle Prize</h3>
-        <div class="row">
-          <div class="col-12 col-md-6 position-relative">
-            <img style="object-fit: cover; height: 500px" class="w-100" src="{{upcoming_raffle.campaign.prize.img_url}}" alt="{{upcoming_raffle.campaign.prize.name}}">
-          </div>
-          <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-center">
-            <div class="fw-500 fs-1">{{upcoming_raffle.campaign.prize.name}}</div>
-            <div class="fs-2">{{upcoming_raffle.campaign.prize.description}}</div>
-          </div>
+  </div>
+  {% endif %}
+  <div class="py-5" style="background-color: rgba(255, 255, 255, 0.03)">
+    <div class="container">
+      <h3 class="mb-5">Upcoming Raffle Prize</h3>
+      <div class="row">
+        <div class="col-12 col-md-6 position-relative">
+          <img
+            style="object-fit: cover; height: 500px"
+            class="w-100"
+            src="{{upcoming_raffle.campaign.prize.img_url}}"
+            alt="{{upcoming_raffle.campaign.prize.name}}"
+          />
+        </div>
+        <div
+          class="
+            col-12 col-md-6
+            d-flex
+            flex-column
+            align-items-center
+            justify-content-center
+          "
+        >
+          <div class="fw-500 fs-1">{{upcoming_raffle.campaign.prize.name}}</div>
+          <div class="fs-2">{{upcoming_raffle.campaign.prize.description}}</div>
         </div>
       </div>
     </div>
-    <!-- Upcoming End -->
-    {% endif %}
-    <div class="py-5 d-none" style="background-color: rgba(255,255,255,0.03);">
-      <div class="container">
-        <h3 class="mb-3">About</h3>
-        <p class="fs-5">
-          You need to register to get started with Ralph.
-          <br>
-          Once registered, if a campaign is active you can purchase tickets from your dashboard and bid for amazing prizes.
-          <br>
-          The winning ticket number will be randomly generated by the program, and the winner will be given the prize.
-        </p>
-      </div>
+  </div>
+  <!-- Upcoming End -->
+  {% endif %}
+  <div class="py-5 d-none" style="background-color: rgba(255, 255, 255, 0.03)">
+    <div class="container">
+      <h3 class="mb-3">About</h3>
+      <p class="fs-5">
+        You need to register to get started with Ralph.
+        <br />
+        Once registered, if a campaign is active you can purchase tickets from
+        your dashboard and bid for amazing prizes.
+        <br />
+        The winning ticket number will be randomly generated by the program, and
+        the winner will be given the prize.
+      </p>
     </div>
-    <footer class="mt-auto text-white-50 pt-5">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-12 px-4 d-flex flex-column">
-            <div class="fw-400 fs-5 mb-2">Quicklinks</div>
-            <a class="text-white text-decoration-none mb-2" href="mailto:ralphraffledraw@gmail.com">Contact Ralph</a>
-            <a class="text-white text-decoration-none d-flex align-items-center justify-content-center" target="__blank" href="https://instagram.com/ralphbrook_/"><ion-icon style="font-size: 1.6rem;" name="logo-instagram"></ion-icon></a>
-          </div>
+  </div>
+  <footer class="mt-auto text-white-50 pt-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12 px-4 d-flex flex-column">
+          <div class="fw-400 fs-5 mb-2">Quicklinks</div>
+          <a
+            class="text-white text-decoration-none mb-2"
+            href="mailto:ralphraffledraw@gmail.com"
+            >Contact Ralph</a
+          >
+          <a
+            class="
+              text-white text-decoration-none
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+            target="__blank"
+            href="https://instagram.com/ralphbrook_/"
+            ><ion-icon
+              style="font-size: 1.6rem"
+              name="logo-instagram"
+            ></ion-icon
+          ></a>
         </div>
-        <hr>
-        <p>&copy; Copyright Ralph 2021.</p>
       </div>
-    </footer>
+      <hr />
+      <p>
+        &copy; Copyright Ralph 2021 | Developed by
+        <a
+          style="color: white !important"
+          href="https://jbritz.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Jibola</a
+        >
+      </p>
+    </div>
+  </footer>
 </div>
-{% endblock body%}
-{% block scripts %} 
+{% endblock body%} {% block scripts %}
 <script>
   // Countdown Script
   const doubleNumber = num => String(num).length == 1 ? `0${num}` : `${num}`;
@@ -159,14 +284,14 @@
   (function() {
     // Set the date we're counting down to
     var countDownDate = new Date("{{countdown_time|date:'M j, Y H:i:s'}}").getTime();
-    
+
     // Update the count down every 1 second
     var x = setInterval(function() {
       countDownContainer.style.opacity = "1";
-      
+
       // Get todays date and time
       var now = new Date().getTime();
-      
+
       // Find the distance between now an the count down date
       var distance = countDownDate - now;
 
@@ -207,14 +332,14 @@
   (function() {
     // Set the date we're counting down to
     var countDownDate = new Date("{{upcoming_time|date:'M j, Y H:i:s'}}").getTime();
-    
+
     // Update the count down every 1 second
     var y = setInterval(function() {
       upcoming.style.opacity = "1";
-      
+
       // Get todays date and time
       var now = new Date().getTime();
-      
+
       // Find the distance between now an the count down date
       var distance = countDownDate - now;
 
@@ -247,12 +372,11 @@
   function closeModal() {
     document.body.classList.remove("open-modal");
   }
-
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script>
   var slider = tns({
-    container: '.my-slider',
+    container: ".my-slider",
     controls: false,
     nav: false,
     autoplay: true,
@@ -263,8 +387,8 @@
       },
       992: {
         items: 4,
-      }
-    }
+      },
+    },
   });
 </script>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
